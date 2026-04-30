@@ -28,18 +28,18 @@ const faqs = [
 const FAQItem = ({ faq, isOpen, toggle }) => {
   return (
     <div className="border-b border-white/5 last:border-none">
-      <button 
+      <button
         onClick={toggle}
-        className="w-full py-6 flex items-center justify-between text-left group"
+        className="w-full py-4 md:py-6 flex items-center justify-between text-left group"
       >
-        <span className={`text-lg font-bold transition-colors ${isOpen ? 'text-primary' : 'text-white group-hover:text-primary'}`}>
+        <span className={`text-base md:text-lg font-bold leading-snug transition-colors ${isOpen ? 'text-primary' : 'text-slate-50 group-hover:text-primary'}`}>
           {faq.question}
         </span>
-        <div className={`p-2 rounded-lg transition-all duration-300 ${isOpen ? 'bg-primary text-white' : 'bg-white/5 text-gray-400 group-hover:bg-white/10'}`}>
+        <div className={`p-2 rounded-lg transition-all duration-300 ${isOpen ? 'bg-primary text-slate-950' : 'bg-white/5 text-slate-300 group-hover:bg-white/10'}`}>
           {isOpen ? <Minus size={18} /> : <Plus size={18} />}
         </div>
       </button>
-      
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -49,7 +49,7 @@ const FAQItem = ({ faq, isOpen, toggle }) => {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="pb-6 text-gray-400 leading-relaxed">
+            <div className="pb-6 text-slate-400 text-base md:text-base leading-relaxed font-medium">
               {faq.answer}
             </div>
           </motion.div>
@@ -63,37 +63,37 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <section id="faq" className="py-8 md:py-24 relative max-w-4xl mx-auto">
-      <div className="text-center mb-16">
-        <motion.h2 
+    <section id="faq" className="py-12 md:py-24 relative max-w-4xl mx-auto px-4">
+      <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+        <motion.h2
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="text-secondary font-bold tracking-widest uppercase text-sm mb-2"
+          className="section-kicker mb-3"
         >
           Common Questions
         </motion.h2>
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-black mb-6"
+          className="section-title mb-3"
         >
           Frequently Asked <span className="text-gradient">Questions</span>
         </motion.h1>
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="glass-card p-4 md:p-8"
       >
         {faqs.map((faq, idx) => (
-          <FAQItem 
-            key={idx} 
-            faq={faq} 
-            isOpen={openIndex === idx} 
+          <FAQItem
+            key={idx}
+            faq={faq}
+            isOpen={openIndex === idx}
             toggle={() => setOpenIndex(openIndex === idx ? -1 : idx)}
           />
         ))}
@@ -102,9 +102,9 @@ const FAQ = () => {
       <div className="mt-12 text-center p-8 glass rounded-2xl border border-primary/20">
         <div className="flex items-center justify-center gap-4 mb-4">
           <HelpCircle className="text-primary" size={32} />
-          <h3 className="text-xl font-bold">Still have questions?</h3>
+          <h3 className="card-title">Still have questions?</h3>
         </div>
-        <p className="text-gray-400 mb-6">Can't find what you're looking for? Reach out and I'll get back to you.</p>
+        <p className="section-copy mb-6">Can't find what you're looking for? Reach out and I'll get back to you.</p>
         <a href="#contact" className="btn-outline">
           Contact Me Directly
         </a>
