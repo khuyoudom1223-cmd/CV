@@ -390,6 +390,30 @@
   animation: yellowSweep 34s ease-in-out infinite, gradientPulse 18s ease-in-out infinite;
 }
 
+.particle-field {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -2;
+  contain: layout paint;
+}
+
+.falling-particle {
+  position: absolute;
+  top: -8vh;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.18) 45%, transparent 72%);
+  box-shadow: 0 0 16px rgba(125, 211, 252, 0.16);
+  opacity: 0.45;
+  filter: blur(0.15px);
+  will-change: transform, opacity;
+  transform: translate3d(0, -12vh, 0);
+  animation-name: particleFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
 .orb-yellow {
   background: radial-gradient(circle, rgba(253, 224, 71, 0.55), rgba(253, 224, 71, 0));
 }
@@ -403,6 +427,27 @@
 
   50% {
     transform: translate3d(20vw, -6vh, 0) scale(1.08);
+  }
+}
+
+@keyframes particleFall {
+  0% {
+    transform: translate3d(0, -12vh, 0) translateX(0) scale(0.92);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.42;
+  }
+
+  50% {
+    transform: translate3d(var(--particle-drift, 0), 52vh, 0) translateX(0) scale(1);
+    opacity: 0.28;
+  }
+
+  100% {
+    transform: translate3d(calc(var(--particle-drift, 0) * 1.15), 112vh, 0) translateX(0) scale(0.94);
+    opacity: 0;
   }
 }
 
@@ -445,6 +490,10 @@
   .floating-light {
     display: none;
   }
+
+  .falling-particle {
+    opacity: 0.28;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -456,5 +505,10 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .particle-field,
+  .falling-particle {
+    display: none !important;
   }
 }

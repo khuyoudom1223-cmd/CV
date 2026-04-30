@@ -15,13 +15,13 @@ import FAQ from './components/FAQ'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import AnimatedBackground from './components/AnimatedBackground'
 
 function App() {
   return (
     <div className="relative isolate min-h-screen">
-      {/* Background Mesh */}
-      <div className="bg-gradient-mesh" />
-      <div className="fixed inset-0 z-[-3] animated-gradient-bg opacity-[0.08] pointer-events-none" />
+      {/* Smooth Animated Background */}
+      <AnimatedBackground />
 
       {/* Glow effects */}
       <div className="floating-orb orb-primary top-[-12%] left-[-8%] w-[34vw] h-[34vw]" />
