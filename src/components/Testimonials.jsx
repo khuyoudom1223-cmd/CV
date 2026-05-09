@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
+import React from 'react'
+import { motion } from 'framer-motion'
+import { Quote, Star } from 'lucide-react'
 
 const testimonials = [
   {
@@ -27,88 +27,63 @@ const testimonials = [
 ]
 
 const Testimonials = () => {
-  const [index, setIndex] = useState(0)
-
-  const next = () => setIndex((prev) => (prev + 1) % testimonials.length)
-  const prev = () => setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-
   return (
-    <section id="testimonials" className="py-12 md:py-24 relative">
-      <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto px-4">
+    <section id="testimonials" className="py-20 md:py-32 relative overflow-hidden px-4 md:px-6">
+      <div className="text-center mb-16 md:mb-24">
         <motion.h2
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="section-kicker mb-3"
-        >
-          What Clients Say
-        </motion.h2>
-        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="section-title mb-3"
+          className="section-kicker"
+        >
+          Success Stories
+        </motion.h2>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="section-title"
         >
           Client <span className="text-gradient">Testimonials</span>
         </motion.h1>
       </div>
 
-      <div className="relative max-w-4xl mx-auto px-4 md:px-12">
-        <AnimatePresence mode="wait">
+      <div className="flex overflow-x-auto lg:grid lg:grid-cols-1 snap-x snap-mandatory no-scrollbar gap-4 md:gap-12 max-w-7xl mx-auto pb-8 lg:pb-0">
+        {testimonials.map((testimonial, idx) => (
           <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.5 }}
-            className="glass-card text-center py-6 px-4 md:py-16 md:px-24 relative overflow-hidden"
+            key={idx}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative h-full snap-center min-w-[280px] w-[85%] lg:w-full shrink-0"
           >
-            <div className="absolute top-2 left-2 md:top-8 md:left-8 text-primary/10">
-              <Quote size={32} className="md:w-16 md:h-16" />
+            <div className={`glass-card group flex flex-col cursor-pointer transition-all duration-700 h-full p-6 md:p-12 hover:border-primary/20`}>
+              <div className="absolute top-4 right-4 text-primary/10 group-hover:text-primary/20 transition-colors">
+                <Quote size={40} className="md:w-20 md:h-20" />
+              </div>
+
+              <div className="relative z-10 flex flex-col items-center text-center h-full">
+                <div className="text-4xl md:text-7xl mb-4 md:mb-8 filter drop-shadow-premium group-hover:scale-110 transition-transform duration-500">{testimonial.avatar}</div>
+
+                <div className="flex justify-center gap-1 mb-4 md:mb-6 text-secondary">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} size={12} className="md:w-5 md:h-5" fill="currentColor" />
+                  ))}
+                </div>
+
+                <p className="text-slate-400 italic mb-8 md:mb-10 text-sm md:text-2xl leading-relaxed font-medium flex-1">
+                  "{testimonial.content}"
+                </p>
+
+                <div className="mt-auto pt-6 border-t border-white/5 w-full">
+                  <h4 className="text-base md:text-3xl font-black text-white tracking-tight">{testimonial.name}</h4>
+                  <p className="text-primary-light font-black text-[10px] md:text-lg uppercase tracking-widest mt-1">{testimonial.role}</p>
+                </div>
+              </div>
             </div>
-
-            <div className="text-3xl md:text-6xl mb-3 md:mb-8">{testimonials[index].avatar}</div>
-
-            <p className="text-slate-300 italic mb-4 md:mb-8 line-clamp-3 md:line-clamp-none text-base md:text-lg leading-relaxed font-medium">
-              "{testimonials[index].content}"
-            </p>
-
-            <div className="flex justify-center gap-0.5 md:gap-1 mb-4 md:mb-6 text-accent">
-              {[...Array(testimonials[index].rating)].map((_, i) => (
-                <Star key={i} size={14} className="md:w-5 md:h-5" fill="currentColor" />
-              ))}
-            </div>
-
-            <h4 className="text-base md:text-lg font-bold text-white">{testimonials[index].name}</h4>
-            <p className="text-primary font-semibold text-sm md:text-base leading-tight mt-1">{testimonials[index].role}</p>
           </motion.div>
-        </AnimatePresence>
-
-        {/* Controls - smaller for mobile */}
-        <button
-          onClick={prev}
-          className="absolute left-0 top-1/2 -translate-y-1/2 p-2 md:p-4 glass rounded-full hover:bg-white/10 transition-colors z-20"
-        >
-          <ChevronLeft size={16} className="md:w-6 md:h-6" />
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-0 top-1/2 -translate-y-1/2 p-2 md:p-4 glass rounded-full hover:bg-white/10 transition-colors z-20"
-        >
-          <ChevronRight size={16} className="md:w-6 md:h-6" />
-        </button>
-
-        {/* Indicators */}
-        <div className="flex justify-center gap-1 md:gap-2 mt-4 md:mt-8">
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIndex(i)}
-              className={`h-1 md:h-2 rounded-full transition-all duration-300 ${i === index ? 'w-4 md:w-8 bg-primary' : 'w-1 md:w-2 bg-white/20 hover:bg-white/40'
-                }`}
-            />
-          ))}
-        </div>
+        ))}
       </div>
     </section>
   )

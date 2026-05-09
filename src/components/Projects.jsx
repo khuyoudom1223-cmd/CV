@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, Github, Code2, Layout, Smartphone } from 'lucide-react'
+import { ExternalLink, Github, Code2 } from 'lucide-react'
 
 const projects = [
   {
@@ -45,22 +45,21 @@ const Projects = () => {
   const [expandedIdx, setExpandedIdx] = React.useState(null)
 
   return (
-    <section id="projects" className="py-12 md:py-24 relative">
-      <div className="text-center mb-12 md:mb-16 px-4">
+    <section id="projects" className="py-20 md:py-32 relative px-4 md:px-6">
+      <div className="text-center mb-16 md:mb-24">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-primary font-bold tracking-widest uppercase text-xs md:text-sm mb-3"
+          className="section-kicker"
         >
           My Portfolio
         </motion.h2>
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="section-title mb-3"
+          className="section-title"
         >
           Featured <span className="text-gradient">Projects</span>
         </motion.h1>
@@ -68,15 +67,15 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="section-copy max-w-2xl mx-auto text-base md:text-lg"
+          transition={{ delay: 0.1 }}
+          className="section-copy mx-auto"
         >
-          Explore a selection of my best work, where design meets functionality
-          through modern web technologies and innovative animations.
+          A curated selection of my most impactful work, combining pixel-perfect design
+          with high-performance engineering.
         </motion.p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 lg:gap-12">
+      <div className="flex overflow-x-auto md:grid md:grid-cols-2 snap-x snap-mandatory no-scrollbar gap-4 md:gap-8 lg:gap-12 max-w-7xl mx-auto pb-8 md:pb-0">
         {projects.map((project, idx) => (
           <motion.div
             key={idx}
@@ -85,31 +84,36 @@ const Projects = () => {
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
             onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
-            className={`glass-card group flex flex-col h-full overflow-hidden p-0 cursor-pointer transition-all duration-500 ${expandedIdx === idx ? 'ring-2 ring-primary/50' : ''}`}
+            className={`glass-card group flex flex-col h-full overflow-hidden p-0 cursor-pointer transition-all duration-700 snap-center min-w-[280px] w-[85%] md:w-full shrink-0 ${expandedIdx === idx ? 'border-primary/40 ring-2 ring-primary/5' : 'border-white/5 hover:border-white/10'}`}
           >
             {/* Project Preview Area */}
-            <div className="h-40 md:h-52 relative overflow-hidden flex items-center justify-center bg-gradient-to-br from-white/5 to-white/10">
-              <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                {project.image.startsWith('/') ? (
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="text-7xl">{project.image}</div>
-                )}
-              </div>
+            <div className="h-48 md:h-72 relative overflow-hidden flex items-center justify-center">
+              <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
+              <motion.div 
+                className="w-full h-full"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+              >
+                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+              </motion.div>
 
-              <div className="absolute top-4 left-4">
-                <span className="px-3 py-1 bg-dark/50 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-wider border border-white/10">
+              <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
+                <span className="px-3 py-1 bg-dark/60 backdrop-blur-xl rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.15em] border border-white/10 text-white">
                   {project.category}
                 </span>
               </div>
+              
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent z-10" />
             </div>
 
             {/* Content */}
-            <div className="flex-1 p-5 md:p-8 flex flex-col">
-              <h3 className="text-lg md:text-2xl font-black text-slate-50 mb-2 group-hover:text-primary transition-colors tracking-tight">
-                {project.title}
-              </h3>
+            <div className="flex-1 p-6 md:p-10 flex flex-col">
+              <div className="flex justify-between items-start mb-4 md:mb-6">
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-white group-hover:text-primary-light transition-colors tracking-tight leading-tight">
+                  {project.title}
+                </h3>
+              </div>
 
               <motion.div
                 initial={false}
@@ -117,38 +121,39 @@ const Projects = () => {
                   height: expandedIdx === idx ? 'auto' : 0,
                   opacity: expandedIdx === idx ? 1 : 0
                 }}
-                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="overflow-hidden"
               >
-                <p className="card-copy text-sm md:text-base text-slate-400 mb-6 leading-relaxed">
+                <p className="text-slate-400 text-sm md:text-lg mb-6 md:mb-8 leading-relaxed">
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-8">
+                <div className="flex flex-wrap gap-2 mb-8 md:mb-10">
                   {project.tech.map((t, i) => (
-                    <span key={i} className="px-2.5 py-1 bg-primary/10 rounded-md text-[10px] md:text-xs text-primary font-bold uppercase tracking-wider border border-primary/20">
+                    <span key={i} className="px-2 py-0.5 bg-primary/10 rounded-lg text-[10px] md:text-xs text-primary-light font-black uppercase tracking-[0.1em] border border-primary/20">
                       {t}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex items-center gap-6 pt-6 border-t border-white/5 mt-auto">
-                  <a href={project.link} className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-white hover:text-primary transition-colors group/link uppercase tracking-wider">
-                    <ExternalLink size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                    <span>Live Demo</span>
+                <div className="flex items-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-white/10 mt-auto">
+                  <a href={project.link} className="flex items-center gap-1.5 text-[10px] md:text-xs font-black text-white hover:text-primary-light transition-all group/link uppercase tracking-[0.15em]">
+                    <ExternalLink size={14} className="md:w-4 md:h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                    <span>Live</span>
                   </a>
-                  <a href={project.github} className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-slate-500 hover:text-slate-200 transition-colors uppercase tracking-wider">
-                    <Github size={14} />
-                    <span>GitHub</span>
+                  <a href={project.github} className="flex items-center gap-1.5 text-[10px] md:text-xs font-black text-slate-500 hover:text-white transition-all uppercase tracking-[0.15em]">
+                    <Github size={14} className="md:w-4 md:h-4" />
+                    <span>Code</span>
                   </a>
                 </div>
               </motion.div>
 
-              {/* Status Hint */}
-              <div className="mt-auto pt-2">
-                <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">
-                  {expandedIdx === idx ? 'Click to close' : 'Click to view'}
-                </span>
+              {/* Status Hint / Button Style */}
+              <div className="mt-auto pt-6 border-t border-white/5 flex justify-center">
+                <div className={`w-full py-3 rounded-2xl border text-[10px] md:text-xs font-black uppercase tracking-[0.2em] transition-all duration-500 flex items-center justify-center gap-2 ${expandedIdx === idx ? 'bg-primary border-primary-light text-white shadow-glow-primary' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'}`}>
+                  <span>{expandedIdx === idx ? 'VIEW LESS' : 'VIEW DETAILS'}</span>
+                  {expandedIdx !== idx && <Code2 size={14} />}
+                </div>
               </div>
             </div>
           </motion.div>

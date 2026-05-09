@@ -30,9 +30,10 @@ const ScrollToTop = () => {
           whileHover={{ scale: 1.08, y: -4 }}
           whileTap={{ scale: 0.95 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 md:bottom-10 md:right-10 p-4 glass rounded-2xl z-[100] text-white shadow-2xl hover:shadow-[0_0_40px_rgba(6,182,212,0.28)] transition-all border border-white/20 bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20 cursor-pointer"
+          className="fixed bottom-6 right-6 md:bottom-12 md:right-12 p-5 bg-dark-card/60 backdrop-blur-3xl rounded-full z-[100] text-white shadow-premium hover:shadow-glow-primary transition-all border border-white/20 bg-gradient-to-br from-primary/10 to-accent/10 cursor-pointer overflow-hidden group"
         >
-          <ArrowUp size={24} />
+          <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <ArrowUp size={28} className="relative z-10 group-hover:-translate-y-1 transition-transform duration-500" />
         </motion.button>
       )}
     </AnimatePresence>

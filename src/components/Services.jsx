@@ -45,37 +45,37 @@ const Services = () => {
   const [expandedIdx, setExpandedIdx] = React.useState(null)
 
   return (
-    <section id="services" className="py-12 md:py-24 relative overflow-hidden">
-      <div className="text-center mb-8 md:mb-16 max-w-3xl mx-auto px-4">
+    <section id="services" className="py-20 md:py-32 relative overflow-hidden px-6">
+      <div className="text-center mb-16 md:mb-24">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="section-kicker mb-3"
+          className="section-kicker"
         >
           My Expert Offerings
         </motion.h2>
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="section-title mb-3"
+          className="section-title"
         >
           Services <span className="text-gradient">I Provide</span>
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.15 }}
-          className="section-copy text-base md:text-lg"
+          transition={{ delay: 0.1 }}
+          className="section-copy mx-auto"
         >
-          Clean interfaces, consistent motion, and polished execution across web and mobile experiences.
+          Delivering high-impact digital solutions through technical excellence 
+          and human-centric design.
         </motion.p>
       </div>
 
-      <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 md:gap-8">
+      <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 snap-x snap-mandatory no-scrollbar gap-4 md:gap-8 lg:gap-12 max-w-7xl mx-auto pb-8 md:pb-0">
         {services.map((service, idx) => (
           <motion.div
             key={idx}
@@ -84,24 +84,22 @@ const Services = () => {
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
             onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
-            className={`glass-card group flex flex-col h-full overflow-hidden p-0 cursor-pointer transition-all duration-500 ${expandedIdx === idx ? 'ring-2 ring-primary/50' : ''}`}
+            className={`glass-card group flex flex-col h-full overflow-hidden p-0 cursor-pointer transition-all duration-700 snap-center min-w-[280px] w-[85%] md:w-full shrink-0 ${expandedIdx === idx ? 'border-primary/40 ring-2 ring-primary/5' : 'border-white/5 hover:border-white/10'}`}
           >
-            {/* Full-width Image Header */}
-            <div className="relative h-40 md:h-56 overflow-hidden">
-              <div className={`absolute inset-0 bg-surface/50 transition-colors duration-500 group-hover:bg-primary/10 ${typeof service.icon !== 'string' ? service.color : ''}`} />
-              {typeof service.icon === 'string' ? (
-                <img src={service.icon} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <service.icon size={48} className="md:w-16 md:h-16 group-hover:scale-110 transition-transform duration-500" />
-                </div>
-              )}
-              {/* Subtle Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050914] to-transparent opacity-60" />
+            {/* Image Header */}
+            <div className="relative h-48 md:h-64 overflow-hidden">
+              <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
+              <img 
+                src={service.icon} 
+                alt={service.title} 
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+              />
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent z-10" />
             </div>
 
-            <div className="p-5 md:p-8 flex-1 flex flex-col">
-              <h3 className="text-lg md:text-2xl font-black text-slate-50 mb-2 group-hover:text-primary transition-colors tracking-tight">
+            <div className="p-6 md:p-10 flex-1 flex flex-col">
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-white group-hover:text-primary-light transition-colors tracking-tight mb-4 md:mb-6 leading-tight">
                 {service.title}
               </h3>
 
@@ -111,27 +109,27 @@ const Services = () => {
                   height: expandedIdx === idx ? 'auto' : 0,
                   opacity: expandedIdx === idx ? 1 : 0
                 }}
-                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="overflow-hidden"
               >
-                <p className="card-copy text-sm md:text-base text-slate-400 mb-6 leading-relaxed">
+                <p className="text-slate-400 text-sm md:text-lg mb-6 md:mb-8 leading-relaxed">
                   {service.description}
                 </p>
 
-                {/* Navigation Link */}
-                <div className="pt-4 border-t border-white/5 w-full">
-                  <span className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-[0.2em] group-hover:text-primary transition-colors cursor-pointer flex items-center gap-2 group/btn">
-                    <span>Explore Service</span>
-                    <span className="transform group-hover/btn:translate-x-1.5 transition-transform duration-300">→</span>
+                <div className="pt-4 md:pt-6 border-t border-white/10 w-full mb-6">
+                  <span className="text-[10px] md:text-xs font-black text-primary-light uppercase tracking-[0.2em] flex items-center gap-2 group/btn">
+                    <span>EXPLORE</span>
+                    <span className="transform group-hover/btn:translate-x-1 transition-transform duration-300">→</span>
                   </span>
                 </div>
               </motion.div>
 
-              {/* Status Hint */}
-              <div className="mt-auto pt-2">
-                <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">
-                  {expandedIdx === idx ? 'Click to close' : 'Click to view'}
-                </span>
+              {/* Status Hint / Button Style */}
+              <div className="mt-auto pt-6 border-t border-white/5 flex justify-center">
+                <div className={`w-full py-3 rounded-2xl border text-[10px] md:text-xs font-black uppercase tracking-[0.2em] transition-all duration-500 flex items-center justify-center gap-2 ${expandedIdx === idx ? 'bg-primary border-primary-light text-white shadow-glow-primary' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'}`}>
+                  <span>{expandedIdx === idx ? 'VIEW LESS' : 'VIEW DETAILS'}</span>
+                  {expandedIdx !== idx && <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-white/20`} />}
+                </div>
               </div>
             </div>
           </motion.div>

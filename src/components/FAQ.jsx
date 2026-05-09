@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Minus, HelpCircle } from 'lucide-react'
+import { HelpCircle, ChevronDown } from 'lucide-react'
 
 const faqs = [
   {
     question: 'How long does a typical project take?',
-    answer: 'A standard portfolio website takes 2-3 weeks, while more complex web applications with backend integration pueden mean 6-8 weeks depending on the scope.'
+    answer: 'A standard portfolio website takes 2-3 weeks, while more complex web applications with backend integration can mean 6-8 weeks depending on the scope.'
   },
   {
     question: 'Do you offer custom design services?',
@@ -27,35 +27,42 @@ const faqs = [
 
 const FAQItem = ({ faq, isOpen, toggle }) => {
   return (
-    <div className="border-b border-white/5 last:border-none">
-      <button
-        onClick={toggle}
-        className="w-full py-4 md:py-6 flex items-center justify-between text-left group"
-      >
-        <span className={`text-base md:text-lg font-bold leading-snug transition-colors ${isOpen ? 'text-primary' : 'text-slate-50 group-hover:text-primary'}`}>
+    <motion.div 
+      layout
+      className={`glass-card group flex flex-col cursor-pointer transition-all duration-700 h-full p-6 md:p-10 snap-center min-w-[280px] w-[85%] lg:w-full shrink-0 ${isOpen ? 'border-primary/40 ring-2 ring-primary/5 bg-dark-card' : 'border-white/5 hover:border-white/10'}`}
+      onClick={toggle}
+    >
+      <div className="flex flex-col gap-6">
+        <div className={`p-4 w-fit rounded-2xl transition-all duration-500 shadow-premium ${isOpen ? 'bg-primary border-primary-light text-white' : 'bg-white/5 text-slate-400 border border-white/10'}`}>
+          <ChevronDown size={20} className={`transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} />
+        </div>
+        <span className={`text-sm md:text-2xl font-black leading-tight transition-all duration-500 ${isOpen ? 'text-primary-light' : 'text-white'}`}>
           {faq.question}
         </span>
-        <div className={`p-2 rounded-lg transition-all duration-300 ${isOpen ? 'bg-primary text-slate-950' : 'bg-white/5 text-slate-300 group-hover:bg-white/10'}`}>
-          {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-        </div>
-      </button>
+      </div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="pb-6 text-slate-400 text-base md:text-base leading-relaxed font-medium">
+            <div className="pt-6 md:pt-8 text-slate-400 text-xs md:text-xl leading-relaxed font-medium border-t border-white/5 mt-6">
               {faq.answer}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      
+      {!isOpen && (
+        <div className="mt-auto pt-6 border-t border-white/5 text-[10px] text-slate-600 font-black tracking-widest uppercase">
+          TAP TO REVEAL
+        </div>
+      )}
+    </motion.div>
   )
 }
 
@@ -63,32 +70,27 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <section id="faq" className="py-12 md:py-24 relative max-w-4xl mx-auto px-4">
-      <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+    <section id="faq" className="py-20 md:py-32 relative max-w-7xl mx-auto px-4 md:px-6 overflow-hidden">
+      <div className="text-center mb-16 md:mb-24">
         <motion.h2
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="section-kicker mb-3"
-        >
-          Common Questions
-        </motion.h2>
-        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="section-title mb-3"
+          className="section-kicker"
+        >
+          Common Queries
+        </motion.h2>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="section-title"
         >
           Frequently Asked <span className="text-gradient">Questions</span>
         </motion.h1>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="glass-card p-4 md:p-8"
-      >
+      <div className="flex overflow-x-auto lg:grid lg:grid-cols-1 snap-x snap-mandatory no-scrollbar gap-4 md:gap-8 mb-16 pb-8 lg:pb-0">
         {faqs.map((faq, idx) => (
           <FAQItem
             key={idx}
@@ -97,18 +99,25 @@ const FAQ = () => {
             toggle={() => setOpenIndex(openIndex === idx ? -1 : idx)}
           />
         ))}
-      </motion.div>
-
-      <div className="mt-12 text-center p-8 glass rounded-2xl border border-primary/20">
-        <div className="flex items-center justify-center gap-4 mb-4">
-          <HelpCircle className="text-primary" size={32} />
-          <h3 className="card-title">Still have questions?</h3>
-        </div>
-        <p className="section-copy mb-6">Can't find what you're looking for? Reach out and I'll get back to you.</p>
-        <a href="#contact" className="btn-outline">
-          Contact Me Directly
-        </a>
       </div>
+
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        className="text-center p-10 md:p-16 glass-card border-primary/20 bg-primary/5"
+      >
+        <div className="flex flex-col items-center gap-6">
+          <div className="p-5 bg-primary/10 rounded-[2rem] text-primary shadow-glow-primary">
+            <HelpCircle size={48} />
+          </div>
+          <h3 className="text-2xl md:text-3xl font-black text-white">Still have questions?</h3>
+          <p className="text-slate-400 text-lg md:text-xl max-w-2xl">Can't find what you're looking for? Reach out and I'll get back to you soon.</p>
+          <a href="#contact" className="btn-primary !px-10">
+            CONTACT ME
+          </a>
+        </div>
+      </motion.div>
     </section>
   )
 }

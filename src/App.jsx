@@ -19,16 +19,15 @@ import AnimatedBackground from './components/AnimatedBackground'
 
 function App() {
   return (
-    <div className="relative isolate min-h-screen">
-      {/* Smooth Animated Background */}
-      <AnimatedBackground />
-
-      {/* Glow effects */}
-      <div className="floating-orb orb-primary top-[-12%] left-[-8%] w-[34vw] h-[34vw]" />
-      <div className="floating-orb orb-accent top-[18%] right-[-10%] w-[28vw] h-[28vw]" />
-      <div className="floating-orb orb-secondary bottom-[-12%] left-[18%] w-[26vw] h-[26vw]" />
-      <div className="floating-light orb-yellow top-[14%] left-[-16%] w-[42vw] h-[20vw]" />
-      <div className="fixed inset-0 z-[-2] opacity-[0.14] bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.35)_1px,transparent_0)] [background-size:22px_22px]" />
+    <div className="relative isolate min-h-screen bg-[#050508]">
+      {/* Dark Fantasy Background Layer (behind everything) */}
+      <div className="fixed inset-0 z-[-10] bg-[#050508]">
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 20% 0%, rgba(109, 40, 217, 0.15) 0%, transparent 50%)' }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 80% 100%, rgba(217, 70, 239, 0.1) 0%, transparent 50%)' }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 60%)' }} />
+        {/* Grid Overlay */}
+        <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(circle_at_1px_1px,rgba(168,85,247,0.5)_1px,transparent_0)] [background-size:28px_28px]" />
+      </div>
 
       <ScrollProgress />
       <Navbar />
@@ -37,7 +36,7 @@ function App() {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut', delay: 0.08 }}
-        className="container mx-auto px-4 md:px-12 lg:px-24"
+        className="container mx-auto px-3 md:px-12 lg:px-24 relative z-10"
       >
         <Hero />
         <About />
@@ -56,10 +55,14 @@ function App() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut', delay: 0.18 }}
+        className="relative z-10"
       >
         <Footer />
       </motion.div>
       <ScrollToTop />
+
+      {/* Skeleton Monster Creature — ALWAYS ON TOP */}
+      <AnimatedBackground />
     </div>
   )
 }

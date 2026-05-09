@@ -54,19 +54,19 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${scrolled ? 'py-3 bg-surface/80 backdrop-blur-2xl border-b border-white/5 shadow-lg' : 'py-5 bg-transparent'}`}>
-        <div className="container mx-auto px-5 md:px-12 flex justify-between items-center">
+      <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'py-3 bg-dark/80 backdrop-blur-2xl border-b border-white/5 shadow-premium' : 'py-6 bg-transparent'}`}>
+        <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-2xl font-bold text-gradient tracking-tighter cursor-pointer"
+            className="text-4xl font-black text-gradient tracking-[-0.08em] cursor-pointer drop-shadow-premium"
             onClick={() => scrollToSection('#home')}
           >
             OUDOM
           </motion.div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => {
               const isContact = link.name === 'Contact'
               return (
@@ -81,13 +81,13 @@ const Navbar = () => {
                   setActiveTab(link.name)
                   scrollToSection(link.href)
                 }}
-                className="relative text-sm font-semibold hover:text-primary transition-colors py-2 tracking-wide text-slate-300"
+                className="relative text-[11px] font-black hover:text-primary-light transition-all py-2 tracking-[0.2em] uppercase text-slate-300"
               >
                 {link.name}
                 {activeTab === link.name && !isContact && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-secondary"
+                    className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary rounded-full shadow-glow-primary"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -97,17 +97,17 @@ const Navbar = () => {
               href="https://t.me/khuyoudom"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary text-xs !py-2 !px-6 block text-center"
+              className="btn-primary text-[10px] !py-3 !px-6 tracking-widest"
             >
-              Hire Me
+              HIRE ME
             </a>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
+          <div className="flex lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-slate-200 hover:text-white transition-all p-2 bg-white/5 rounded-lg border border-white/10"
+              className={`relative z-[110] text-white p-3 rounded-2xl transition-all duration-500 ${isOpen ? 'bg-primary shadow-glow-primary scale-110' : 'bg-white/5 border border-white/10 shadow-premium'}`}
               aria-label="Toggle Menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -125,82 +125,75 @@ const Navbar = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setIsOpen(false)}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] md:hidden"
+                className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[100] md:hidden"
               />
 
               {/* Menu Content */}
               <motion.div
-                initial={{ opacity: 0, x: '100%' }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: '100%' }}
+                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="fixed top-0 right-0 h-screen w-[280px] bg-[#050914] z-[100] md:hidden border-l border-white/5 shadow-2xl overflow-y-auto"
+                className="fixed inset-0 flex flex-col items-center justify-center z-[105] md:hidden px-6"
               >
-                <div className="flex flex-col h-full">
-                  <div className="p-6 flex justify-between items-center border-b border-white/5">
-                    <span className="text-xl font-bold text-gradient">MENU</span>
-                    <button onClick={() => setIsOpen(false)} className="p-2 bg-white/5 rounded-lg">
-                      <X size={20} />
-                    </button>
-                  </div>
-
-                  <div className="flex flex-col px-6 py-8 gap-4 flex-1">
-                    {/* Socials at Top */}
-                    <div className="flex gap-4 mb-6">
-                      {socialLinks.map((social, i) => (
-                        <a
-                          key={i}
-                          href={social.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2.5 bg-white/5 rounded-full border border-white/10 hover:border-primary/50 transition-colors text-slate-400 hover:text-primary"
-                        >
-                          <social.icon size={18} />
-                        </a>
-                      ))}
-                    </div>
-
-                    {/* Nav Links */}
-                    {navLinks.map((link) => {
-                      const isContact = link.name === 'Contact'
-                      return (
-                      <a
-                        key={link.name}
-                        href={isContact ? 'https://t.me/khuyoudom' : link.href}
-                        target={isContact ? '_blank' : undefined}
-                        rel={isContact ? 'noopener noreferrer' : undefined}
-                        onClick={(e) => {
-                          if (isContact) {
-                            setIsOpen(false)
-                            return
-                          }
-                          e.preventDefault()
-                          setActiveTab(link.name)
-                          scrollToSection(link.href)
-                        }}
-                        className={`text-lg font-bold transition-all flex items-center justify-between group ${activeTab === link.name ? 'text-primary' : 'text-slate-400'}`}
-                      >
-                        <span>{link.name}</span>
-                        <motion.span
-                          initial={{ x: -10, opacity: 0 }}
-                          animate={{ x: activeTab === link.name ? 0 : -10, opacity: activeTab === link.name ? 1 : 0 }}
-                          className="text-primary"
-                        >
-                          →
-                        </motion.span>
-                      </a>
-                    )})}
-
-                    <a
-                      href="https://t.me/khuyoudom"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsOpen(false)}
-                      className="btn-primary w-full mt-8 py-4 text-base font-bold shadow-lg block text-center"
+                <div className="flex flex-col items-center gap-6 w-full max-w-sm">
+                  {navLinks.map((link, i) => {
+                    const isContact = link.name === 'Contact'
+                    return (
+                    <motion.a
+                      key={link.name}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      href={isContact ? 'https://t.me/khuyoudom' : link.href}
+                      target={isContact ? '_blank' : undefined}
+                      rel={isContact ? 'noopener noreferrer' : undefined}
+                      onClick={(e) => {
+                        if (isContact) {
+                          setIsOpen(false)
+                          return
+                        }
+                        e.preventDefault()
+                        setActiveTab(link.name)
+                        scrollToSection(link.href)
+                      }}
+                      className={`text-4xl font-black tracking-tighter transition-all ${activeTab === link.name ? 'text-primary' : 'text-slate-500 hover:text-white'}`}
                     >
-                      Hire Me
-                    </a>
-                  </div>
+                      {link.name.toUpperCase()}
+                    </motion.a>
+                  )})}
+
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="flex gap-6 mt-12"
+                  >
+                    {socialLinks.map((social, i) => (
+                      <a
+                        key={i}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-primary/50 transition-all text-slate-400 hover:text-primary hover:-translate-y-2"
+                      >
+                        <social.icon size={24} />
+                      </a>
+                    ))}
+                  </motion.div>
+
+                  <motion.a
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    href="https://t.me/khuyoudom"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsOpen(false)}
+                    className="btn-primary w-full mt-8 py-5 text-lg font-black tracking-widest shadow-premium"
+                  >
+                    HIRE ME
+                  </motion.a>
                 </div>
               </motion.div>
             </>
