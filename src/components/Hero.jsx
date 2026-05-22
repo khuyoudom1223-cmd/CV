@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Typewriter } from 'react-simple-typewriter'
-import { Github, Linkedin, Instagram, ArrowRight, Sparkles } from 'lucide-react'
+import { Send, Linkedin, ArrowRight, Sparkles } from 'lucide-react'
 
 const Hero = () => {
   return (
@@ -66,25 +66,21 @@ const Hero = () => {
 
           {/* Social Links */}
           <div className="mt-12 md:mt-20 flex justify-center lg:justify-start gap-5">
-            {[Github, Linkedin, Instagram].map((Icon, idx) => {
-              const href =
-                Icon === Github ? 'https://github.com/oudomkhuy' :
-                  Icon === Linkedin ? 'https://www.linkedin.com/in/huot-sambath-171a6940b?utm_source=share_via&utm_content=profile&utm_medium=member_ios' :
-                    Icon === Instagram ? 'https://www.instagram.com/oudomkhuy?igsh=cjNlNDlrazExY3o%3D&utm_source=qr' :
-                      '#'
-              return (
-                <motion.a
-                  key={idx}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -8, scale: 1.1 }}
-                  className="p-4 bg-white/5 rounded-2xl border border-white/10 text-slate-400 hover:text-primary-light hover:border-primary/30 transition-all shadow-premium"
-                >
-                  <Icon size={24} />
-                </motion.a>
-              )
-            })}
+            {[
+              { Icon: Linkedin, href: 'https://www.linkedin.com/in/huot-sambath-171a6940b?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+              { Icon: Send, href: 'https://t.me/huot_sambath' },
+            ].map(({ Icon, href }, idx) => (
+              <motion.a
+                key={idx}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -8, scale: 1.1 }}
+                className="p-4 bg-white/5 rounded-2xl border border-white/10 text-slate-400 hover:text-primary-light hover:border-primary/30 transition-all shadow-premium"
+              >
+                <Icon size={24} />
+              </motion.a>
+            ))}
           </div>
         </motion.div>
       </div>
