@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, Github, Code2 } from 'lucide-react'
+import { ExternalLink, Github } from 'lucide-react'
 
 const projects = [
   {
@@ -42,11 +42,36 @@ const projects = [
 ]
 
 const Projects = () => {
-  const [expandedIdx, setExpandedIdx] = React.useState(null)
+  const containerRef = useRef(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const [scrollLeft, setScrollLeft] = useState(0)
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true)
+    setStartX(e.pageX - containerRef.current.offsetLeft)
+    setScrollLeft(containerRef.current.scrollLeft)
+  }
+
+  const handleMouseLeave = () => {
+    setIsDragging(false)
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return
+    e.preventDefault()
+    const x = e.pageX - containerRef.current.offsetLeft
+    const walk = (x - startX) * 1.5 // Scroll multiplier
+    containerRef.current.scrollLeft = scrollLeft - walk
+  }
 
   return (
-    <section id="projects" className="py-20 md:py-32 relative px-4 md:px-6">
-      <div className="text-center mb-16 md:mb-24">
+    <section id="projects" className="py-20 md:py-32 relative overflow-hidden px-4 md:px-6">
+      <div className="text-center mb-12 md:mb-16">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,94 +95,91 @@ const Projects = () => {
           transition={{ delay: 0.1 }}
           className="section-copy mx-auto"
         >
-          A curated selection of my most impactful work, combining pixel-perfect design
-          with high-performance engineering.
+          A curated selection of my most impactful work, designed for smooth swipe exploration.
         </motion.p>
       </div>
 
-      <div className="flex overflow-x-auto md:grid md:grid-cols-2 snap-x snap-mandatory no-scrollbar gap-4 md:gap-8 lg:gap-12 max-w-7xl mx-auto pb-8 md:pb-0">
-        {projects.map((project, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
-            className={`glass-card group flex flex-col h-full overflow-hidden p-0 cursor-pointer transition-all duration-700 snap-center min-w-[280px] w-[85%] md:w-full shrink-0 ${expandedIdx === idx ? 'border-primary/40 ring-2 ring-primary/5' : 'border-white/5 hover:border-white/10'}`}
-          >
-            {/* Project Preview Area */}
-            <div className="h-48 md:h-72 relative overflow-hidden flex items-center justify-center">
-              <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
-              <motion.div 
-                className="w-full h-full"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-              >
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-              </motion.div>
-
-              <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
-                <span className="px-3 py-1 bg-dark/60 backdrop-blur-xl rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.15em] border border-white/10 text-white">
-                  {project.category}
-                </span>
-              </div>
-              
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent z-10" />
-            </div>
-
-            {/* Content */}
-            <div className="flex-1 p-6 md:p-10 flex flex-col">
-              <div className="flex justify-between items-start mb-4 md:mb-6">
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-white group-hover:text-primary-light transition-colors tracking-tight leading-tight">
-                  {project.title}
-                </h3>
+      {/* Horizontal Swipe/Scroll Wrapper */}
+      <div className="max-w-7xl mx-auto relative px-0 md:px-6">
+        <div
+          ref={containerRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          className="flex overflow-x-auto gap-6 md:gap-8 py-6 px-4 md:px-8 no-scrollbar scroll-smooth snap-x snap-mandatory cursor-grab active:cursor-grabbing select-none"
+        >
+          {projects.map((project, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.08 }}
+              className="snap-center shrink-0 w-[285px] sm:w-[325px] md:w-[410px] glass-card flex flex-col h-[490px] md:h-[550px] overflow-hidden p-0 rounded-[2rem] border border-black/5 dark:border-white/5 hover:border-primary/20 dark:hover:border-primary/30 hover:shadow-glow-primary transition-all duration-500 group select-none relative"
+            >
+              {/* Project Image */}
+              <div className="h-44 md:h-60 overflow-hidden relative select-none">
+                <div className="absolute inset-0 bg-primary/25 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 select-none" 
+                  draggable="false"
+                />
+                <div className="absolute top-4 left-4 z-20">
+                  <span className="px-3 py-1 bg-[#050508]/85 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-[0.15em] border border-white/10 text-white select-none">
+                    {project.category}
+                  </span>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent z-10" />
               </div>
 
-              <motion.div
-                initial={false}
-                animate={{
-                  height: expandedIdx === idx ? 'auto' : 0,
-                  opacity: expandedIdx === idx ? 1 : 0
-                }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="overflow-hidden"
-              >
-                <p className="text-slate-400 text-sm md:text-lg mb-6 md:mb-8 leading-relaxed">
-                  {project.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-8 md:mb-10">
-                  {project.tech.map((t, i) => (
-                    <span key={i} className="px-2 py-0.5 bg-primary/10 rounded-lg text-[10px] md:text-xs text-primary-light font-black uppercase tracking-[0.1em] border border-primary/20">
-                      {t}
-                    </span>
-                  ))}
+              {/* Content Area */}
+              <div className="p-6 md:p-8 flex flex-col justify-between flex-1 select-none">
+                <div>
+                  <h3 className="text-xl md:text-2.5xl font-black text-slate-900 dark:text-white mb-2.5 group-hover:text-primary-light transition-colors select-none tracking-tight">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs md:text-[14px] leading-relaxed mb-4 select-none">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.tech.map((t, i) => (
+                      <span key={i} className="px-2 py-0.5 bg-primary/10 rounded-lg text-[9px] text-primary-light font-black uppercase tracking-[0.1em] border border-primary/20 select-none">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-white/10 mt-auto">
-                  <a href={project.link} className="flex items-center gap-1.5 text-[10px] md:text-xs font-black text-white hover:text-primary-light transition-all group/link uppercase tracking-[0.15em]">
-                    <ExternalLink size={14} className="md:w-4 md:h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                    <span>Live</span>
+                {/* Action Buttons */}
+                <div className="flex items-center gap-4 pt-4 border-t border-black/5 dark:border-white/5 select-none mt-auto">
+                  <a 
+                    href={project.link} 
+                    className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-primary to-secondary hover:shadow-glow-primary hover:-translate-y-0.5 border border-primary-light/10 text-[10px] md:text-xs font-black text-white uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-1.5 select-none"
+                  >
+                    <ExternalLink size={12} />
+                    <span>VIEW LIVE</span>
                   </a>
-                  <a href={project.github} className="flex items-center gap-1.5 text-[10px] md:text-xs font-black text-slate-500 hover:text-white transition-all uppercase tracking-[0.15em]">
-                    <Github size={14} className="md:w-4 md:h-4" />
-                    <span>Code</span>
+                  <a 
+                    href={project.github} 
+                    className="p-3 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/5 dark:border-white/10 rounded-2xl text-slate-500 hover:text-slate-800 dark:hover:text-white transition-all flex items-center justify-center select-none"
+                  >
+                    <Github size={16} />
                   </a>
                 </div>
-              </motion.div>
-
-              {/* Status Hint / Button Style */}
-              <div className="mt-auto pt-6 border-t border-white/5 flex justify-center">
-                <div className={`w-full py-3 rounded-2xl border text-[10px] md:text-xs font-black uppercase tracking-[0.2em] transition-all duration-500 flex items-center justify-center gap-2 ${expandedIdx === idx ? 'bg-primary border-primary-light text-white shadow-glow-primary' : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'}`}>
-                  <span>{expandedIdx === idx ? 'VIEW LESS' : 'VIEW DETAILS'}</span>
-                  {expandedIdx !== idx && <Code2 size={14} />}
-                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Swipe Hint Visual Aid */}
+      <div className="flex justify-center items-center gap-3 mt-8 md:mt-12 select-none z-20 relative">
+        <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center gap-2">
+          <span>←</span> Swipe / Drag to Explore <span>→</span>
+        </span>
       </div>
     </section>
   )

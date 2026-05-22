@@ -83,8 +83,8 @@ const Skills = () => {
             onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
             className={`glass-card group flex flex-col h-full overflow-hidden p-0 cursor-pointer transition-all duration-700 ${
               expandedIdx === idx 
-                ? 'border-primary/40 ring-2 ring-primary/5 bg-dark-card' 
-                : 'border-white/5 hover:border-white/10'
+                ? 'border-primary/40 ring-2 ring-primary/5' 
+                : ''
             }`}
           >
             {/* Header Image Area */}
@@ -135,9 +135,9 @@ const Skills = () => {
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="overflow-hidden bg-dark/40"
+                  className="overflow-hidden bg-black/5 dark:bg-dark/40"
                 >
-                  <div className="p-6 md:p-12 space-y-8 md:space-y-12 border-t border-white/10">
+                  <div className="p-6 md:p-12 space-y-8 md:space-y-12 border-t border-black/5 dark:border-white/10">
                     {category.skills.map((skill, sIdx) => (
                       <div key={sIdx} className="space-y-3 md:space-y-4">
                         <div className="flex justify-between items-end">
@@ -168,7 +168,7 @@ const Skills = () => {
             </AnimatePresence>
             
             {/* View All Footer */}
-            <div className={`py-4 md:py-6 text-center transition-colors duration-500 mt-auto ${expandedIdx === idx ? 'bg-primary/10' : 'bg-black/40 border-t border-white/5'}`}>
+            <div className={`py-4 md:py-6 text-center transition-colors duration-500 mt-auto ${expandedIdx === idx ? 'bg-primary/10' : 'bg-black/5 dark:bg-black/40 border-t border-black/5 dark:border-white/5'}`}>
               <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.3em] transition-all duration-300 ${expandedIdx === idx ? 'text-primary' : 'text-slate-400 group-hover:text-white group-hover:tracking-[0.4em]'}`}>
                 {expandedIdx === idx ? 'CLOSE' : 'VIEW ALL'}
               </span>

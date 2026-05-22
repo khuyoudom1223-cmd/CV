@@ -48,7 +48,7 @@ const Testimonials = () => {
         </motion.h1>
       </div>
 
-      <div className="flex overflow-x-auto lg:grid lg:grid-cols-1 snap-x snap-mandatory no-scrollbar gap-4 md:gap-12 max-w-7xl mx-auto pb-8 lg:pb-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-0 md:px-6">
         {testimonials.map((testimonial, idx) => (
           <motion.div
             key={idx}
@@ -56,7 +56,7 @@ const Testimonials = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative h-full snap-center min-w-[280px] w-[85%] lg:w-full shrink-0"
+            className="relative h-full w-full"
           >
             <div className={`glass-card group flex flex-col cursor-pointer transition-all duration-700 h-full p-6 md:p-12 hover:border-primary/20`}>
               <div className="absolute top-4 right-4 text-primary/10 group-hover:text-primary/20 transition-colors">

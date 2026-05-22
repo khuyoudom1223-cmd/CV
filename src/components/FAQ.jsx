@@ -29,7 +29,7 @@ const FAQItem = ({ faq, isOpen, toggle }) => {
   return (
     <motion.div 
       layout
-      className={`glass-card group flex flex-col cursor-pointer transition-all duration-700 h-full p-6 md:p-10 snap-center min-w-[280px] w-[85%] lg:w-full shrink-0 ${isOpen ? 'border-primary/40 ring-2 ring-primary/5 bg-dark-card' : 'border-white/5 hover:border-white/10'}`}
+      className={`glass-card group flex flex-col cursor-pointer transition-all duration-700 h-full p-6 md:p-10 w-full ${isOpen ? 'border-primary/40 ring-2 ring-primary/5 bg-dark-card' : 'border-white/5 hover:border-white/10'}`}
       onClick={toggle}
     >
       <div className="flex flex-col gap-6">
@@ -90,7 +90,7 @@ const FAQ = () => {
         </motion.h1>
       </div>
 
-      <div className="flex overflow-x-auto lg:grid lg:grid-cols-1 snap-x snap-mandatory no-scrollbar gap-4 md:gap-8 mb-16 pb-8 lg:pb-0">
+      <div className="grid grid-cols-1 gap-6 mb-16 px-0 md:px-6">
         {faqs.map((faq, idx) => (
           <FAQItem
             key={idx}

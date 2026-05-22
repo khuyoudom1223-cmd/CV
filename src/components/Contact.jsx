@@ -58,7 +58,7 @@ const Contact = () => {
             transition={{ delay: 0.4 }}
           >
             <a 
-              href="https://t.me/khuyoudom"
+              href="https://t.me/huot_sambath"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary !px-12 !py-6 text-xl font-black tracking-widest shadow-glow-primary"

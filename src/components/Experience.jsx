@@ -59,7 +59,7 @@ const Experience = () => {
         </motion.h1>
       </div>
 
-      <div className="flex overflow-x-auto lg:grid lg:grid-cols-1 snap-x snap-mandatory no-scrollbar gap-4 md:gap-12 max-w-7xl mx-auto lg:pl-12 lg:border-l-2 lg:border-white/5 lg:space-y-16 pb-8 lg:pb-0">
+      <div className="grid grid-cols-1 gap-6 max-w-7xl mx-auto px-0 md:px-6 lg:pl-12 lg:border-l-2 lg:border-white/5 lg:space-y-8">
         {experiences.map((exp, idx) => (
           <motion.div
             key={idx}
@@ -67,7 +67,7 @@ const Experience = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative h-full snap-center min-w-[280px] w-[85%] lg:w-full shrink-0"
+            className="relative h-full w-full"
           >
             {/* Timeline Connector Dot - Hidden on Mobile Grid */}
             <div className="hidden lg:block absolute -left-[41px] md:-left-[57px] top-8 w-5 h-5 md:w-7 md:h-7 rounded-full bg-dark border-4 border-primary shadow-glow-primary z-10" />

@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     screens: {
       'xs': '480px',
@@ -40,13 +41,18 @@ export default {
         line: "rgba(168, 85, 247, 0.15)",
       },
       fontFamily: {
-        outfit: ['Outfit', 'sans-serif'],
+        display: ['Sora', 'Kantumruy Pro', 'Plus Jakarta Sans', 'sans-serif'],
+        body:    ['Nunito', 'Kantumruy Pro', 'Plus Jakarta Sans', 'sans-serif'],
+        mono:    ['Fira Code', 'JetBrains Mono', 'monospace'],
+        khmer:   ['Kantumruy Pro', 'Battambang', 'sans-serif'],
+        outfit:  ['Outfit', 'sans-serif'],
       },
       boxShadow: {
         'premium': '0 20px 60px rgba(0, 0, 0, 0.6)',
         'premium-hover': '0 30px 80px rgba(0, 0, 0, 0.7)',
         'glow-primary': '0 0 30px rgba(139, 92, 246, 0.4)',
         'glow-secondary': '0 0 30px rgba(217, 70, 239, 0.4)',
+        'glow-text': '0 0 20px rgba(167, 139, 250, 0.6), 0 0 60px rgba(217, 70, 239, 0.2)',
       },
       dropShadow: {
         'premium': '0 10px 30px rgba(0, 0, 0, 0.8)',

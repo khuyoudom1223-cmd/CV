@@ -21,8 +21,8 @@ const About = () => {
           <div className="relative w-full aspect-square rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 bg-dark-card shadow-premium">
             {!imageLoaded && <div className="absolute inset-0 skeleton" />}
             <motion.img
-              src="/photo_2026-04-29_20-38-16.jpg"
-              alt="Oudom in a navy suit"
+              src="/IMG_5128.PNG"
+              alt="Sam Bath"
               onLoad={() => setImageLoaded(true)}
               initial={{ scale: 1.1 }}
               animate={{ y: [0, -10, 0] }}
@@ -68,8 +68,8 @@ const About = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 pt-4">
             <a 
-              href="/Screenshot%202026-04-30%20111303.png" 
-              download="Oudom_CV.png"
+              href="/SambathCV.pdf" 
+              download="SambathCV.pdf"
               className="btn-primary w-full sm:w-auto"
             >
               <Download size={20} />

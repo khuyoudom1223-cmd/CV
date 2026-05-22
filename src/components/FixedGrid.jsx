@@ -27,7 +27,7 @@ const FixedGrid = () => {
         </div>
 
         {/* Fixed Grid Container: 4 columns on ALL screen sizes */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-8 w-full border border-white/5 p-4 md:p-8 rounded-[2rem] bg-white/5 backdrop-blur-md">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-8 w-full border border-black/5 dark:border-white/5 p-4 md:p-8 rounded-[2rem] bg-black/5 dark:bg-white/5 backdrop-blur-md">
           {fixedItems.map((item, idx) => (
             <motion.div
               key={idx}
@@ -36,9 +36,9 @@ const FixedGrid = () => {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               whileHover={{ y: -6, scale: 1.03 }}
-              className="flex flex-col items-center justify-center p-2 md:p-6 bg-white/5 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors group aspect-square md:aspect-auto"
+              className="flex flex-col items-center justify-center p-2 md:p-6 bg-black/5 dark:bg-white/5 rounded-2xl border border-black/5 dark:border-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors group aspect-square md:aspect-auto"
             >
-              <div className={`mb-2 md:mb-4 p-2 md:p-4 bg-white/5 rounded-xl group-hover:scale-110 transition-transform ${item.color} flex items-center justify-center overflow-hidden`}>
+              <div className={`mb-2 md:mb-4 p-2 md:p-4 bg-black/5 dark:bg-white/5 rounded-xl group-hover:scale-110 transition-transform ${item.color} flex items-center justify-center overflow-hidden`}>
                 <img src={item.imgSrc} alt={item.label} className="w-12 h-12 md:w-16 md:h-16 lg:w-24 lg:h-24 object-cover rounded-lg" />
               </div>
               <span className="text-[10px] md:text-sm lg:text-base font-bold text-slate-900 dark:text-white uppercase tracking-tighter md:tracking-widest">

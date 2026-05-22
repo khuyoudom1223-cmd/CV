@@ -13,9 +13,14 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-sm md:text-xl font-black text-primary-light mb-4 tracking-[0.4em] uppercase">Hello, I'm Oudom</h2>
+          <h2
+            className="text-sm md:text-xl font-bold mb-4 tracking-[0.35em] uppercase text-primary-light"
+            style={{ fontFamily: 'var(--font-mono)' }}
+          >
+            Hello, I'm Sam Bath
+          </h2>
           <h1 className="hero-h1 mb-6 md:mb-10">
-            Frontend <span className="text-gradient">Developer</span>
+            Frontend <span className="text-gradient-glow">Developer</span>
           </h1>
 
           <div className="text-xl md:text-4xl font-bold mb-8 md:mb-12 min-h-[3rem] md:min-h-[4rem] flex flex-wrap justify-center lg:justify-start items-center gap-x-2">
@@ -50,7 +55,7 @@ const Hero = () => {
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
             <a 
-              href="https://t.me/khuyoudom"
+              href="https://t.me/huot_sambath"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline"
@@ -64,7 +69,7 @@ const Hero = () => {
             {[Github, Linkedin, Instagram].map((Icon, idx) => {
               const href =
                 Icon === Github ? 'https://github.com/oudomkhuy' :
-                  Icon === Linkedin ? 'https://linkedin.com/in/oudom-khuy-1205423b5' :
+                  Icon === Linkedin ? 'https://www.linkedin.com/in/huot-sambath-171a6940b?utm_source=share_via&utm_content=profile&utm_medium=member_ios' :
                     Icon === Instagram ? 'https://www.instagram.com/oudomkhuy?igsh=cjNlNDlrazExY3o%3D&utm_source=qr' :
                       '#'
               return (
@@ -99,7 +104,7 @@ const Hero = () => {
           <div className="relative z-10 w-full aspect-square md:aspect-[4/5] lg:aspect-square overflow-hidden rounded-[2.5rem] md:rounded-[4rem] shadow-premium border border-white/10 bg-dark-card">
             <motion.img
               src="/photo_2026-04-29_21-03-51.jpg"
-              alt="Oudom - Frontend Developer"
+              alt="Sam Bath - Frontend Developer"
               initial={{ scale: 1.1 }}
               animate={{ y: [0, -20, 0] }}
               transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
